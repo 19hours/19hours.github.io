@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kevin Chu</title>
+    <meta name="description" content="Supermarket wars - April 18, 2020">
+    <link rel="stylesheet" href="../assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      pre {
+        display: block;
+        font-family: 'Courier New', Courier, monospace;
+        white-space: pre;
+        margin: 1em 0px;
+        max-width: 648px;
+        padding: 16px;
+        overflow-x: scroll;
+        font-size: 85%;
+        line-height: 1.45;
+        background-color: #f6f8fa;
+        word-break: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+      }
+      pre.expand {
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/" title="" class="logo">Kevin Chu</a>&nbsp;&nbsp;
+    <div class="nav">
+      <a href="/me" title="About">About</a>
+    </div>
+    <div class="container">
+    <h1>My macbook setup</h1>
+    <p class="light">
+      April 24, 2020
+    </p>
+    <p style="font-family: 'Courier New', Courier, monospace;">For future reference.</p>
+    <h3>General</h3>
+    <ul>
+      <li>
+        Disable Location Services, Siri and de-select Share Analytics & Improvements
+      </li>
+      <li>
+        Enable Trackpad->Tap to click
+      </li>
+      <li>
+        Set timezone to Singapore, select View as digital, Show day and date in menu bar 
+      </li>
+      <li>
+        Select Show percentage for battery in menu bar
+      </li>
+      <li>
+        Set hostname
+        <br />
+        <code><pre>sudo scutil --set ComputerName "macbook"</pre></code>
+        <code><pre>sudo scutil --set LocalHostName "macbook"</pre></code>
+        <code><pre>sudo scutil --set HostName "macbook"</pre></code>
+      </li>
+    </ul>
+    <h3>Essential apps</h3>
+    <ul>
+      <li>Alfred</li>
+      <li>Xcode
+        <br />
+        <code><pre>xcode-select —-install</pre></code>
+      </li>
+      <li>Android Studio</li>
+      <li>
+        Visual Studio Code
+        <br />
+        <p>Install settings.json afterwards</p>
+        <code><pre class="expand">{
+  "workbench.colorTheme": "Monokai Pro (Filter Octagon)",
+  "workbench.iconTheme": "Monokai Pro (Filter Octagon) Icons",
+  "editor.tabSize": 2,
+  "dart.flutterSdkPath": "/Library/SDK/flutter",
+  "window.zoomLevel": 1,
+  "terminal.integrated.shell.osx": "/bin/zsh"
+}</pre></code>
+      </li>
+      <li>Office</li>
+      <li>Bitwarden</li>
+      <li>
+        Chrome
+        <p>Settings</p>
+        <ul>
+          <li>Enable Manage Sync and Google Services->Manage sync->Open Tabs. Leave the rest disabled</li>
+          <li>Turn off Auto-fill for Passwords, Payment methods and Addresses</li>
+          <li>Install Bitwarden, JSON Formatter extensions</li>
+        </ul>
+      </li>
+      <li>Adobe apps</li>
+      <li>Whatsapp</li>
+      <li>Telegram</li>
+    </ul>
+    <!-- Directories -->
+    <h3>New directories</h3>
+    <ul>
+      <li>~/Projects</li>
+      <li>~/Library/SDK</li>
+      <li>~/.Keys</li>
+      <li>~/.MongoDB</li>
+    </ul>
+    <code><pre>mkdir {~/Projects, ~/Library/SDK, ~/.Keys, ~/.MongoDB}</pre></code>
+    <!-- Git and Github -->
+    <h3>Git</h3>
+    <p>Generate new key and add to Github</p>
+    <code><pre>ssh-keygen -t rsa -b 4096 -C "email"</pre></code>
+    <code><pre>eval "$(ssh-agent -s)"</pre></code>
+    <code><pre class="expand">
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/.</pre></code>
+    <code><pre>ssh-add -K ~/.ssh/.</pre></code>
+    <code><pre>pbcopy < ~/.ssh/.</pre></code>
+    <!-- Brew -->
+    <h3>Homebrew</h3>
+    <p>Install homebrew to manage mac packages</p>
+    <code><pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"</pre></code>
+    <h4>Brew cask</h4>
+    <ul>
+      <li>iterm2</li>
+      <li>rectangle</li>
+      <li>robo-3t</li>
+      <li>insomnia</li>
+    </ul>
+    <h4>Brew packages</h4>
+    <ul>
+      <li>
+        pyenv
+        <br />
+        <code><pre>pyenv versions</pre></code>
+        <code><pre>pyenv install x.x.x</pre></code>
+      </li>
+      <li>fasd</li>
+      <li>
+        mongodb-community
+        <br />
+        <code><pre>brew tap mongodb/brew</pre></code>
+      </li>
+    </ul>
+    <!-- Node version manager -->
+    <h4>Node version manager</h4>
+    <code><pre>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash</pre></code>
+    <p>Install latest long-term support version</p>
+    <code><pre>nvm install --lts</pre></code>
+    <!-- iTerm2 -->
+    <h4>iTerm2 configuration</h4>
+    <p>Under preferences,</p>
+    <ul>
+      <li>Appearence->Theme->Minimal</li>
+      <li>Profiles->Colors->Color Presets->Smoooooth</li>
+      <li>
+        Profiles->Keys->Left Option->Esc+
+        <br />
+        <p>Add keyboard shortcut to jump words</p>
+        <code><pre>&#8997; &larr; b</pre></code>
+        <code><pre>&#8997; &rarr; f</pre></code>
+      </li>
+    </ul>
+    <p>Install oh-my-zsh</p>
+    <code><pre>sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</pre></code>
+    <p>Install zsh plugins in plugins folder</p>
+    <ul>
+      <li>zsh-autosuggestions</li>
+      <li>fasd</li>
+      <li>you-should-use</li>
+      <li>auto-ls</li>
+      <li>zsh-syntax-highlighting</li>
+    </ul>
+    <p>Drop .zshrc into ~</p>
+    <code><pre class="expand">
+# ohmyzsh
+export ZSH="/Users/kevin/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(
+  git
+  zsh-autosuggestions
+  fasd
+  you-should-use
+  auto-ls
+  zsh-syntax-highlighting
+)
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# ALIAS
+alias mongod="mongod --dbpath /Users/kevin/.MongoDB/data"
+
+# PATHS
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PATH:/Library/SDK/flutter/bin"
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# PYENV
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# fasd
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+source $ZSH/oh-my-zsh.sh</pre></code>
+    <h3>SDKs</h3>
+    <p>All SDKs should be placed in /Library/SDK</p>
+    <p>Flutter</p>
+    <code><pre>git clone https://github.com/flutter/flutter.git -b stable</pre></code>
+    <!-- how ironic -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-87660761-12"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-87660761-12');
+  </script>
+  </body>
+</html>
+
