@@ -17,15 +17,6 @@
     <p class="light">
       March 28, 2020
     </p>
-    <p>04/04/20: I managed to talk to the developer team earlier. They informed me that:</p>
-    <ul>
-      <li>The data collected is anonymised and the team will not be able to make much sense of it except for application performance purposes</li>
-      <li>They collect phone models across their userbase, so they can make sure the app works on all popular models</li>
-      <li>The 21-day data purge has been completed pending App Store review</li>
-      <li>They have explained the use of Firebase Analytics on their <a href="https://tracetogether.zendesk.com/hc/en-sg/articles/360046092013-What-kind-of-application-analytics-data-does-TraceTogether-collect-" target="_blank">website</a></li>
-    </ul>
-    <p>03/04/20: I have verified that wogaa has been removed in v1.0.40.</p>
-    <br />
     <p>A couple of days ago, I saw the announcement for a new app called TraceTogether. It’s an app by the government to make contact tracing easier. The app appeared on a lot of news websites because it’s a good smart nation initiative.</p>
     <p>I was interested to find out how Bluetooth was used. I launched my terminal and decompiled the app using <a href="https://github.com/skylot/jadx" target="_blank">Jadx</a> to find out what’s powering the app.</p>
     <p>The app uses bluetooth to log other people’s devices around you. I have done some testing myself to know that one of the ways to figure out who’s around you is to use Bluetooth Low Energy (“BLE”). It makes sense to use BLE because leaving it on all day in the background will not drain your battery. The signal strength of the pings can be used to deduce the distance between users. It’s also how airpods use it to connect to your iphone.</p>
@@ -81,6 +72,14 @@
       &#739;
     </p>
     <p>The team says you don't have to reinstall the app if you have auto-update on.</p>
+    <p>04/04/20: I managed to talk to the developer team earlier. They informed me that:</p>
+    <ul>
+      <li>The data collected is anonymised and the team will not be able to make much sense of it except for application performance purposes</li>
+      <li>They collect phone models across their userbase, so they can make sure the app works on all popular models</li>
+      <li>The 21-day data purge has been completed pending App Store review</li>
+      <li>They have explained the use of Firebase Analytics on their <a href="https://tracetogether.zendesk.com/hc/en-sg/articles/360046092013-What-kind-of-application-analytics-data-does-TraceTogether-collect-" target="_blank">website</a></li>
+    </ul>
+    <p>03/04/20: I have verified that wogaa has been removed in v1.0.40.</p>
     <!-- how ironic -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-87660761-12"></script>
   <script>
