@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Kevin Chu</title>
+  <meta name="description" content="Tracking Singapore law with git - June 11, 2020">
+  <link rel="stylesheet" href="../assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  </style>
+</head>
+
+<body>
+  <a href="/" title="" class="logo">Kevin Chu</a>&nbsp;&nbsp;
+  <div class="nav">
+    <a href="/me" title="About">About</a>
+  </div>
+  <div class="container">
+    <h1>Tracking Singapore law with git</h1>
+    <p class="light">
+      June 11, 2020
+    </p>
+    <p>Because the elections are coming, I tried to understand what laws were introduced and what changes were made to
+      the laws since the last election. I visited <a href="https://sso.agc.gov.sg/">sso.agc.gov.sg</a> and they have
+      this timeline box on each page and you have to select a date to see a version of the statute. There was no way to
+      compare different versions on the same screen.</p>
+    <p>Today, I created a <a href="https://github.com/19hours/sg-statutes">git repository</a> to track all changes to
+      the statutes.</p>
+    <p><a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Git</a> is a version control
+      system that records changes to a set of files over time. Combined with markdown, it becomes simple to see all
+      changes made to a statute.</p>
+    <p>Behind the scenes, the documents on sso.agc are word-converted pages. That means you would have a table in a
+      table in a table to display a line of text. Manually parsing the documents felt like Rick bringing me on a ride to
+      parallel universes with infinite tables. There were too many small differences in the statute documents to cover
+      every edge case so some of mine have unformatted text as a fallback.</p>
+    <p>This is a small step in my goal to create a powerful legal application on desktop. Please drop me an <a
+        href="mailto:kevinchuwinghim@gmail.com?subject=Hello">email</a> if you're a law student or lawyer. I want to
+      solve your problems.</p>
+    <br />
+    <br />
+    <img style="image-rendering: -webkit-optimize-contrast;" src="images/cpf-act-changes.png"
+      alt="Small and big changes to CPF act" />
+    <p class="small aligncenter">Small and big changes to CPF act.</p>
+    <br />
+    <img src="images/different-acts-same-day.png" alt="Changes to different acts on the same day" />
+    <p class="small aligncenter">Changes to different acts on the same day.</p>
+    <br />
+    <!-- how ironic -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-87660761-12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-87660761-12');
+    </script>
+</body>
+
+</html>
