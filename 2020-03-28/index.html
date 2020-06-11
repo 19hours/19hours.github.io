@@ -1,75 +1,109 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Kevin Chu</title>
-    <meta name="description" content="Privacy - March 28, 2020">
-    <link rel="stylesheet" href="../assets/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
-  </head>
-  <body>
-    <a href="/" title="" class="logo">Kevin Chu</a>&nbsp;&nbsp;
-    <div class="nav">
-      <a href="/me" title="About">About</a>
-    </div>
-    <div class="container">
+
+<head>
+  <meta charset="utf-8">
+  <title>Kevin Chu</title>
+  <meta name="description" content="Privacy - March 28, 2020">
+  <link rel="stylesheet" href="../assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <a href="/" title="" class="logo">Kevin Chu</a>&nbsp;&nbsp;
+  <div class="nav">
+    <a href="/me" title="About">About</a>
+  </div>
+  <div class="container">
     <h1>Privacy</h1>
     <p class="light">
       March 28, 2020
     </p>
-    <p>A couple of days ago, I saw the announcement for a new app called TraceTogether. It’s an app by the government to make contact tracing easier. The app appeared on a lot of news websites because it’s a good smart nation initiative.</p>
-    <p>I was interested to find out how Bluetooth was used. I launched my terminal and decompiled the app using <a href="https://github.com/skylot/jadx" target="_blank">Jadx</a> to find out what’s powering the app.</p>
-    <p>The app uses bluetooth to log other people’s devices around you. I have done some testing myself to know that one of the ways to figure out who’s around you is to use Bluetooth Low Energy (“BLE”). It makes sense to use BLE because leaving it on all day in the background will not drain your battery. The signal strength of the pings can be used to deduce the distance between users. It’s also how airpods use it to connect to your iphone.</p>
-    <p>While I was looking through the code, I saw that the app was using Firebase Analytics and Crashlytics. I found one instance where Firebase Analytics was used: an event is triggered when the user signs in and gives the app permissions. While it is common for apps to use these two analytics libraries to track user engagement and app crashes, the inclusion of such libraries undermines the developers’ goal to keep data collection minimal.</p>
+    <p>A couple of days ago, I saw the announcement for a new app called TraceTogether. It’s an app by the government to
+      make contact tracing easier. The app appeared on a lot of news websites because it’s a good smart nation
+      initiative.</p>
+    <p>I was interested to find out how Bluetooth was used. I launched my terminal and decompiled the app using <a
+        href="https://github.com/skylot/jadx" target="_blank">Jadx</a> to find out what’s powering the app.</p>
+    <p>The app uses bluetooth to log other people’s devices around you. I have done some testing myself to know that one
+      of the ways to figure out who’s around you is to use Bluetooth Low Energy (“BLE”). It makes sense to use BLE
+      because leaving it on all day in the background will not drain your battery. The signal strength of the pings can
+      be used to deduce the distance between users. It’s also how airpods use it to connect to your iphone.</p>
+    <p>While I was looking through the code, I saw that the app was using Firebase Analytics and Crashlytics. I found
+      one instance where Firebase Analytics was used: an event is triggered when the user signs in and gives the app
+      permissions. While it is common for apps to use these two analytics libraries to track user engagement and app
+      crashes, the inclusion of such libraries undermines the developers’ goal to keep data collection minimal.</p>
     <br />
     <br />
-    <img src="images/firebase-tracking.png" />
+    <img src="images/firebase-tracking.png" alt="An event is triggered once the user signs up successfully" />
     <p class="small aligncenter">An event is triggered once the user signs up successfully.</p>
     <br />
     <br />
-    <p>What caught my eye was another library that was included in the app called Snowplow Analytics. It’s the first time I’ve heard about it and Google tells me it’s an open-sourced analytics platform. Interestingly, a line in the code points to this obscure domain “snowplow-mobile.wogaa.sg”. I visited <a href="https://wogaa.sg" target="_blank">wogaa.sg</a> and it turns out that wogaa is actually a government data collection service. What’s going on here?</p>
+    <p>What caught my eye was another library that was included in the app called Snowplow Analytics. It’s the first
+      time I’ve heard about it and Google tells me it’s an open-sourced analytics platform. Interestingly, a line in the
+      code points to this obscure domain “snowplow-mobile.wogaa.sg”. I visited <a href="https://wogaa.sg"
+        target="_blank">wogaa.sg</a> and it turns out that wogaa is actually a government data collection service.
+      What’s going on here?</p>
     <br />
     <br />
-    <img src="images/snowplow-production.png" />
+    <img src="images/snowplow-production.png" alt="Weird domain" />
     <p class="small aligncenter">Weird domain.</p>
     <br />
-    <img src="images/snowplow-initialised.png" />
-    <p class="small aligncenter">mS.m3744(context, environment) <a href="https://docs.wogaa.sg/mobile-analytics/mobile-android-tracking/#step-2-implement-codes-for-android-tracking" target="_blank">initialises</a> the tracking.</p>
+    <img src="images/snowplow-initialised.png" alt="mS.m3744(context, environment) initialises the tracking" />
+    <p class="small aligncenter">mS.m3744(context, environment) <a
+        href="https://docs.wogaa.sg/mobile-analytics/mobile-android-tracking/#step-2-implement-codes-for-android-tracking"
+        target="_blank">initialises</a> the tracking.</p>
     <br />
-    <img src="images/snowplow-found.png" />
+    <img src="images/snowplow-found.png" alt="Tracking is initialised in these files" />
     <p class="small aligncenter">Tracking is initialised in these files.</p>
     <br />
     <br />
-    <p>The FAQ on wogaa describes itself as “a centralized internet-facing government platform to analyze and improve digital services”. A quick look at wogaa’s documentation tells me that it can log user ip addresses, device type, carrier etc and deduce the user’s location based on this information. With this library packaged in the app, there’s no point in anonymising any information because your data is logged on another service anyway.</p>
+    <p>The FAQ on wogaa describes itself as “a centralized internet-facing government platform to analyze and improve
+      digital services”. A quick look at wogaa’s documentation tells me that it can log user ip addresses, device type,
+      carrier etc and deduce the user’s location based on this information. With this library packaged in the app,
+      there’s no point in anonymising any information because your data is logged on another service anyway.</p>
     <br />
     <br />
-    <img src="images/wogaa.png" />
+    <img src="images/wogaa.png" alt="Wogaa's website" />
     <p class="small aligncenter">Wogaa's website.</p>
     <br />
-    <img src="images/wogaa-data-glossary.png" />
-    <p class="small aligncenter">Part of Wogaa's <a href="https://docs.wogaa.sg/mobile-analytics/mobile-data-glossary/" target="_blank">data glossary</a>.</p>
+    <img src="images/wogaa-data-glossary.png" alt="Part of Wogaa's data glossary" />
+    <p class="small aligncenter">Part of Wogaa's <a href="https://docs.wogaa.sg/mobile-analytics/mobile-data-glossary/"
+        target="_blank">data glossary</a>.</p>
     <br />
-    <img src="images/wogaa-data-received.png" />
-    <p class="small aligncenter">Checking if data from the app has been received before on wogaa's <a href="https://docs.wogaa.sg/mobile-analytics/mobile-android-tracking/#step-3-check-android-implementation" target="_blank">website</a>.</p>
+    <img src="images/wogaa-data-received.png"
+      alt="Checking if data from the app has been received before on wogaa's website" />
+    <p class="small aligncenter">Checking if data from the app has been received before on wogaa's <a
+        href="https://docs.wogaa.sg/mobile-analytics/mobile-android-tracking/#step-3-check-android-implementation"
+        target="_blank">website</a>.</p>
     <br />
     <br />
-    <p>By using a proxy, I can intercept the requests to wogaa to find out what data is sent back. You can view a raw request <a href="./snowplow_request.json" target="_blank">here</a>. From download to setup, there were 19 requests sent to wogaa.</p>
+    <p>By using a proxy, I can intercept the requests to wogaa to find out what data is sent back. You can view a raw
+      request <a href="./snowplow_request.json" target="_blank">here</a>. From download to setup, there were 19 requests
+      sent to wogaa.</p>
     <br />
     <br />
-    <img src="images/snowplow_request.png" />
+    <img src="images/snowplow_request.png" alt="Part of a request to Wogaa" />
     <p class="small aligncenter">Part of a request to Wogaa.</p>
     <br />
     <br />
-    <p>Clearly, some parts of the app’s FAQ are wrong. I went back to the press releases and tried to verify statements about the app. On data hygiene, I found that all data is uploaded even if the data is older than 21 days. There is no code to purge local data beyond a certain time.</p>
+    <p>Clearly, some parts of the app’s FAQ are wrong. I went back to the press releases and tried to verify statements
+      about the app. On data hygiene, I found that all data is uploaded even if the data is older than 21 days. There is
+      no code to purge local data beyond a certain time.</p>
     <br />
     <br />
-    <img src="images/select-all.png" />
+    <img src="images/select-all.png" alt="Code to retrieve all rows in the records table" />
     <p class="small aligncenter">Code to retrieve all rows in the records table.</p>
     <br />
     <br />
-    <p>On the following day, I contacted the team and asked them about my findings. Their response was that wogaa is built by the <a href="https://www.hive.gov.sg/" target="_blank">same team</a> and it’s standard practice to include wogaa in their products. They overlooked the fact that the app is sending more data than necessary so they’re removing wogaa and working to purge local data after 21 days in the next update. During my call with them, I can see that they are a team with great intentions. If you’re concerned about your privacy, it’s best to install the app only after they've updated the app. Otherwise, this app is a great initiative to improve our contact tracing efforts.</p>
+    <p>On the following day, I contacted the team and asked them about my findings. Their response was that wogaa is
+      built by the <a href="https://www.hive.gov.sg/" target="_blank">same team</a> and it’s standard practice to
+      include wogaa in their products. They overlooked the fact that the app is sending more data than necessary so
+      they’re removing wogaa and working to purge local data after 21 days in the next update. During my call with them,
+      I can see that they are a team with great intentions. If you’re concerned about your privacy, it’s best to install
+      the app only after they've updated the app. Otherwise, this app is a great initiative to improve our contact
+      tracing efforts.</p>
     <p style="text-align:center;">
       &#739;
     </p>
@@ -77,20 +111,24 @@
     <p>03/04/20: I have verified that wogaa has been removed in v1.0.40.</p>
     <p>04/04/20: I managed to talk to the developer team earlier. They informed me that:</p>
     <ul>
-      <li>The data collected is anonymised and the team will not be able to make much sense of it except for application performance purposes</li>
-      <li>They collect phone models across their userbase, so they can make sure the app works on all popular models</li>
+      <li>The data collected is anonymised and the team will not be able to make much sense of it except for application
+        performance purposes</li>
+      <li>They collect phone models across their userbase, so they can make sure the app works on all popular models
+      </li>
       <li>The 21-day data purge has been completed pending App Store review</li>
-      <li>They have explained the use of Firebase Analytics on their <a href="https://tracetogether.zendesk.com/hc/en-sg/articles/360046092013-What-kind-of-application-analytics-data-does-TraceTogether-collect-" target="_blank">website</a></li>
+      <li>They have explained the use of Firebase Analytics on their <a
+          href="https://tracetogether.zendesk.com/hc/en-sg/articles/360046092013-What-kind-of-application-analytics-data-does-TraceTogether-collect-"
+          target="_blank">website</a></li>
     </ul>
     <!-- how ironic -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-87660761-12"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-87660761-12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
 
-    gtag('config', 'UA-87660761-12');
-  </script>
-  </body>
+      gtag('config', 'UA-87660761-12');
+    </script>
+</body>
+
 </html>
-
