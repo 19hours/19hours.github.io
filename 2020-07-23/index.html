@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Kevin Chu</title>
+  <meta name="description" content="Buttery smooth home network - July 23, 2020">
+  <link rel="stylesheet" href="../assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  </style>
+</head>
+
+<body>
+  <a href="/" title="" class="logo">Kevin Chu</a>&nbsp;&nbsp;
+  <div class="nav">
+    <a href="/me" title="About">About</a>
+  </div>
+  <div class="container">
+    <h1>Buttery smooth home network</h1>
+    <p class="light">
+      July 23, 2020
+    </p>
+    <p></p>
+    <p>Working at home is nice and comfy but a flaky internet connection can make everyone go crazy. So this morning I
+      took the spare
+      routers that you get from recontracting your ISP plans to reproduce a 4g internet experience at home. It's super
+      fast and convenient because every device switches to the best access point on its own. No more manually switching
+      to different bands when you're close to the router and when you're not. It really feels like 4g at
+      home, but with 4x faster download speeds and 11x upload speeds
+      anywhere you sit or sleep.</p>
+    <p>There are many ways to improve network connectivity at home. I considered two methods, using mesh networks and
+      using access points and using access points is the better option for me.</p>
+    <h3>Differences between mesh networks and access points</h3>
+    <p>Imagine Karen throwing a stack of loose change to Bob, who is standing 10 meters away from her. When Bob catches
+      the money, half of it has flown away and he's left with coins. He takes what's left and mints more of the
+      same coins to throw to Kevin who is standing 10 meters away from him. This is mesh networking.</p>
+    <p>In another scenario, Karen calls a courier, maybe Singpost, to deliver the stack of money to Bob. It's an
+      unregistered
+      post. 9 out of 10 times, Mr Courier accidentally pokes a hole in the packet and coins fall out. After receiving
+      the
+      mail and without checking if anything's missing, Bob throws the money to Kevin. This is
+      wireless access point.</p>
+    <p>There are benefits to using mesh networks like not needing ethernet ports and devices being cheaper. But they
+      come with a performance cost.</p>
+    <h3>Quick guide for StarHub/Singtel/M1/Kids...</h3>
+    <ol>
+      <li>You will need extra routers to act as access points, ethernet cables and one ethernet port at each place where
+        you
+        want to put an access point.</li>
+      <li>The main router connected to the ISP modem needs to have DHCP server and NAT enabled. Other routers must
+        disable both DHCP server and NAT.</li>
+      <li>Set your main router's IP address and subnet. You'll also want the DHCP server to distribute IP addresses in a
+        certain range because you need static IPs for specific devices like your other routers and also things like
+        printers.</li>
+      <li>Connect your ISP modem to your WAN port on your main router.</li>
+      <li>Connect the main router to your access point routers through LAN. It's important not to connect to the WAN
+        port on your access point router. That way it won't work.</li>
+      <li>Enable access point option in the settings for certain routers.</li>
+      <li>Set your access point routers to use a static ip, and use the main router ip as the default gateway. Remember
+        to use the
+        same subnet as your main router.</li>
+      <li>Configure all routers, including the main router, to broadcast the same SSID across both bands, 2.4Ghz and
+        5Ghz. Make sure that they have the same password too. This will let devices switch access points seamlessly.
+      </li>
+      <li>Reboot all routers.</li>
+      <li>Enjoy buttery smooth network connections on all devices everywhere in the house.</li>
+    </ol>
+    <br />
+    <br />
+    <img src="images/wifi-network-nearby.png" alt="" />
+    <p class="small aligncenter">One single network vs multiple networks in one house.</p>
+    <br />
+    <br />
+    <p>Don't settle for anything less than 4 bars.</p>
+    <!-- how ironic -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-87660761-12"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-87660761-12');
+    </script>
+</body>
+
+</html>
